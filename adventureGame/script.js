@@ -1,4 +1,3 @@
-start();
 function start() {
     
     var playerName = prompt('What is your name traveler?');
@@ -17,23 +16,95 @@ function start() {
 
 
 function village() {
-    var village = prompt('You arrive at a small village. There is a blacksmith, inn, shop, and stable. Where will you go?').toLowerCase();
+    var theVillage = prompt('You arrive at a small village. There is a blacksmith, inn, shop, and stable. Where will you go?').toLowerCase();
     
-    switch(village) {
+    switch(theVillage) {
         case 'blacksmith':
-            alert('What can I get for you young lad?');
+            var weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
+                switch (weapon) {
+                    case 'sword':
+                        alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith and leave.');
+                        village()
+                    break;
+                    case 'bow':
+                        alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith and leave.');
+                        village();
+                    break;
+                    case 'staff':
+                        alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith and leave.');
+                        village();
+                    break;
+                    default:
+                        alert('Oh nothing for now? Ok lets return outside.');
+                        village();
+                    break;   
+                }
         break;
         case 'inn':
-            alert('A gorgeous young lady innkeeper ask "Are you wery, will you rest?"');
+            var rest = confirm('A gorgeous young lady innkeeper ask "Are you wery, will you rest?"');
+            if (rest) {
+                alert('You sleep your health is restored. The time is now night')
+                village();
+            }
+            else {
+                alert('You deicied maybe later and you leave.');
+                village();
+            }
         break;
         case 'shop':
-            alert('If you get gold i got stock what ye looking for?');
+            alert('Get out youve got no gold on you i can see your wasting my time and in the way of real customers');
+            village();
         break;
         case 'stable':
-            alert('Will you use a horse to travel to another city?');
+            var travel = confirm('Will you use a horse to travel to the kingdom?');
+            if (travel){
+                kingdom();
+            }
+            else {
+                alert('You deicied maybe later and you leave.');
+                village();
+            }
         break;
         default:
             alert('I dont understand ' + village);
+            village();
+        break;
+    }
+}
+
+function kingdom() {
+    var theKingdom = prompt('This kingdom is so massive and expanisve! so much to see and do, where to start? shop, inn, castle, blacksmith, stable, outside the walls').toLowerCase();
+    
+    switch(theKingdom) {
+        case 'shop':
+            
+            kingdom();
+        break;
+        case 'inn':
+            
+            kingdom();
+        break;
+        case 'castle':
+            
+            kingdom();
+        break;
+        case 'blacksmith':
+            
+            kingdom();
+        break;
+        case 'stable':
+            var travel = confirm('Will you use a horse to travel to the forest?');
+            if (travel){
+                //forest();
+            }
+            else {
+                alert('You deicied maybe later and you leave.');
+                kingdom();
+            }
+        break;
+        case 'outside the walls' || 'outside':
+            
+            kingdom();
         break;
     }
 }
