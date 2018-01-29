@@ -1,3 +1,7 @@
+var weapon;
+var timeOfDay;
+var inventory = { sword: 0, bow: 0, staff: 0, potion: 0, gold: 50}
+var spells = { flameTornato: 0, waterBurst: 0, landsFissure: 0, kazap: 0, skysTempest: 0, frostHunt: 0}
 function start() {
     
     var playerName = prompt('What is your name traveler?');
@@ -20,18 +24,27 @@ function village() {
     
     switch(theVillage) {
         case 'blacksmith':
-            var weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
+            weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
                 switch (weapon) {
                     case 'sword':
                         alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith and leave.');
+                        inventory.sword = 1;
+                        inventory.bow = 0;
+                        inventory.staff = 0;
                         village()
                     break;
                     case 'bow':
                         alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith and leave.');
+                        inventory.sword = 0;
+                        inventory.bow = 1;
+                        inventory.staff = 0;
                         village();
                     break;
                     case 'staff':
                         alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith and leave.');
+                        inventory.sword =0;
+                        inventory.bow = 0;
+                        inventory.staff = 1;
                         village();
                     break;
                     default:
@@ -81,12 +94,19 @@ function kingdom() {
             kingdom();
         break;
         case 'inn':
-            
-            kingdom();
+            var rest = confirm('An old lady innkeeper ask "need a room?"');
+            if (rest) {
+                alert('You sleep your health is restored. The time is now night')
+                kingdom();
+            }
+            else {
+                alert('You deicied maybe later and you leave.');
+                kingdom();
+            }
         break;
         case 'castle':
-            
-            kingdom();
+            alert('You enter the castle');
+            //castle();
         break;
         case 'blacksmith':
             
@@ -105,6 +125,10 @@ function kingdom() {
         case 'outside the walls' || 'outside':
             
             kingdom();
+        break;
+        default:
+            alert('I dont understand ' + village);
+            kingdomm();
         break;
     }
 }
