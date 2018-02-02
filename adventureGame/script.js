@@ -25,33 +25,34 @@ function village() {
     switch(theVillage) {
         case 'blacksmith':
             weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
-                switch (weapon) {
-                    case 'sword':
-                        alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith and leave.');
+            if (weapon == 'sword' && inventory.gold >= 25) {
+                alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith and leave.');
                         inventory.sword = 1;
                         inventory.bow = 0;
                         inventory.staff = 0;
-                        village()
-                    break;
-                    case 'bow':
-                        alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith and leave.');
+                        inventory.gold = inventory.gold - 25;
+                        village();
+            }
+            if else (weapon == 'bow' && inventory.gold >= 25){
+                alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith and leave.');
                         inventory.sword = 0;
                         inventory.bow = 1;
                         inventory.staff = 0;
+                        inventory.gold = inventory.gold - 25;
                         village();
-                    break;
-                    case 'staff':
-                        alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith and leave.');
+            } 
+            if else (weapon == 'staff' && inventory.gold >= 25) {
+                alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith and leave.');
                         inventory.sword =0;
                         inventory.bow = 0;
                         inventory.staff = 1;
+                        inventory.gold = inventory.gold - 25;
                         village();
-                    break;
-                    default:
-                        alert('Oh nothing for now? Ok lets return outside.');
-                        village();
-                    break;   
-                }
+            }
+            else {
+                alert('Oh nothing for now? Ok lets return outside.');
+                village();
+            }
         break;
         case 'inn':
             var rest = confirm('A gorgeous young lady innkeeper ask "Are you wery, will you rest?"');
