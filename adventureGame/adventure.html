@@ -10,13 +10,26 @@
     <h1>Adventure Game ver 1.0</h1>
     <p>Made by Alex Ryder</p>
 
-    <p>This is a text bassed game where you respond to situations with a variety of possible reponses.</p>
-    <input id="begin" type="button" value="Start new game" onclick="start()"; />
+    <p>This is a text based game where you respond to situations with a variety of possible reponses.</p>
     
-    <script>
+    <input id="begin" type="button" value="Check inventory" onclick="stateInventory();"; />
+    <input id="begin" type="button" value="Start new game" onclick="start()"; />
+    <input id="begin" type="button" value="Start the kingdom" onclick="kingdom()"; />
+    <input id="begin" type="button" value="Start the forest" onclick="forest()"; />
+    
+    <script> 
     var timeOfDay;
     var inventory = { sword: 0, bow: 0, staff: 0, potion: 0, gold: 50}
     var spells = { flameTornato: 0, waterBurst: 0, landsFissure: 0, kazap: 0, skysTempest: 0, frostHunt: 0}
+    
+    function stateInventory() {
+        var sword = alert("You have " + inventory.sword + " swords");
+        var bow = alert("You have " + inventory.bow + " bows");
+        var staff = alert("You have " + inventory.staff + " staffs");
+        var potion = alert("You have " + inventory.potion + " potions");
+        var gold = alert("You have " + inventory.gold + " gold");
+    }
+        
     function start() {
 
         var playerName = prompt('What is your name traveler?');
@@ -32,8 +45,7 @@
                 alert('goodbye');
             }
     }
-
-
+        
     function village() {
         var theVillage = prompt('You arrive at a small village. There is a blacksmith, inn, shop, and stable. Where will you go?').toLowerCase();
 
@@ -41,7 +53,7 @@
             case 'blacksmith':
                 weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
                 if (weapon == 'sword' && inventory.gold >= 25) {
-                    alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith and leave.');
+                    alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith 25G and leave.');
                             inventory.sword = 1;
                             inventory.bow = 0;
                             inventory.staff = 0;
@@ -49,7 +61,7 @@
                             village();
                 }
                 else if (weapon == 'bow' && inventory.gold >= 25){
-                    alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith and leave.');
+                    alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith 25G and leave.');
                             inventory.sword = 0;
                             inventory.bow = 1;
                             inventory.staff = 0;
@@ -57,7 +69,7 @@
                             village();
                 } 
                 else if (weapon == 'staff' && inventory.gold >= 25) {
-                    alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith and leave.');
+                    alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith 25G and leave.');
                             inventory.sword =0;
                             inventory.bow = 0;
                             inventory.staff = 1;
@@ -95,14 +107,14 @@
                 }
             break;
             default:
-                alert('I dont understand ' + village);
+                alert('I dont understand ' + theVillage);
                 village();
             break;
         }
     }
 
     function kingdom() {
-        var theKingdom = prompt('This kingdom is so massive and expanisve! so much to see and do, where to start? shop, inn, castle, blacksmith, stable, outside the walls').toLowerCase();
+        var theKingdom = prompt('This kingdom is so massive and expanisve! so much to see and do, where to start? shop, inn, castle, blacksmith or the stables').toLowerCase();
 
         switch(theKingdom) {
             case 'shop':
@@ -131,20 +143,35 @@
             case 'stable':
                 var travel = confirm('Will you use a horse to travel to the forest?');
                 if (travel){
-                    //forest();
+                    forest();
                 }
                 else {
                     alert('You deicied maybe later and you leave.');
                     kingdom();
                 }
             break;
-            case 'outside the walls' || 'outside':
-
+            default:
+                alert('I dont understand ' + theKingdom);
                 kingdom();
             break;
+        }
+    }
+    function forest() {
+        var theForest = prompt('spooky').toLowerCase();
+        
+        switch(theForest) {
+            case '':
+                
+            break;
+            case '':
+                
+            break;
+            case '':
+                
+            break;
             default:
-                alert('I dont understand ' + village);
-                kingdomm();
+                alert('I dont understand ' + theForest);
+                forest();
             break;
         }
     }
