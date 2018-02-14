@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Adventure Game</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
     <!-- <script src="script.js"></script> -->
 </head>
 <body>
@@ -11,23 +11,35 @@
     <p>Made by Alex Ryder</p>
 
     <p>This is a text based game where you respond to situations with a variety of possible reponses.</p>
-    
-    <input id="begin" type="button" value="Check inventory" onclick="stateInventory();"; />
-    <input id="begin" type="button" value="Start new game" onclick="start()"; />
-    <input id="begin" type="button" value="Start the kingdom" onclick="kingdom()"; />
-    <input id="begin" type="button" value="Start the forest" onclick="forest()"; />
+    <p>Inventory can be checked at any point by typing inventory</p>
+    <div class="body">
+    <div class="flexButtons">
+        <input id="begin" type="button" value="Check inventory" onclick="stateInventory()"; style="font-size: 3rem;" />
+        <input id="begin" type="button" value="Start new game" onclick="start()"; style="font-size: 3rem;" />
+        <input id="begin" type="button" value="Start the kingdom" onclick="kingdom()"; style="font-size: 3rem;" />
+        <input id="begin" type="button" value="Start the forest" onclick="forest()"; style="font-size: 3rem;" />
+    </div>
+    </div>
     
     <script> 
     var timeOfDay;
     var inventory = { sword: 0, bow: 0, staff: 0, potion: 0, gold: 50}
     var spells = { flameTornato: 0, waterBurst: 0, landsFissure: 0, kazap: 0, skysTempest: 0, frostHunt: 0}
     
-    function stateInventory() {
-        var sword = alert("You have " + inventory.sword + " swords");
-        var bow = alert("You have " + inventory.bow + " bows");
-        var staff = alert("You have " + inventory.staff + " staffs");
-        var potion = alert("You have " + inventory.potion + " potions");
-        var gold = alert("You have " + inventory.gold + " gold");
+    var stateInventory = function() {
+        alert("You have...\n " + inventory.sword + " swords\n " + inventory.bow + " bows\n " + inventory.staff + " staffs\n " + inventory.potion + " potions\n " + inventory.gold + " gold");
+    }
+    var shop = function() {
+        item = prompt('What would you like to buy. His shelves have a potion, ').toLowerCase();
+            if (item == 'potion' && inventory.gold >= 10) {
+                alert('You bought a potion and payed the man 10 gold');
+                inventory.potion = inventory.potion + 1;
+                inventory.gold = inventory.gold - 10;
+            }
+            else {
+                alert('you suck');
+            }
+        
     }
         
     function start() {
@@ -93,7 +105,7 @@
                 }
             break;
             case 'shop':
-                alert('Get out youve got no gold on you i can see your wasting my time and in the way of real customers');
+                alert('Get out youve got no gold on you I can see your wasting my time and in the way of real customers');
                 village();
             break;
             case 'stable':
@@ -105,6 +117,10 @@
                     alert('You deicied maybe later and you leave.');
                     village();
                 }
+            break;
+            case 'inventory':
+                stateInventory();
+                village();
             break;
             default:
                 alert('I dont understand ' + theVillage);
@@ -118,7 +134,7 @@
 
         switch(theKingdom) {
             case 'shop':
-
+                shop();
                 kingdom();
             break;
             case 'inn':
@@ -150,6 +166,10 @@
                     kingdom();
                 }
             break;
+                case 'inventory':
+                stateInventory();
+                kingdom();
+            break;
             default:
                 alert('I dont understand ' + theKingdom);
                 kingdom();
@@ -168,6 +188,10 @@
             break;
             case '':
                 
+            break;
+            case 'inventory':
+                stateInventory();
+                forest();
             break;
             default:
                 alert('I dont understand ' + theForest);

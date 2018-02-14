@@ -11,3 +11,15 @@ p {
 body{
     background-color: black;
 }
+.flexButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.flexButtons input {
+    width: 25%;
+    margin: 5px;
+}
+.body {
+    margin-left: 525px;
+}
