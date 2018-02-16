@@ -17,17 +17,16 @@
         <input id="begin" type="button" value="Check inventory" onclick="stateInventory()"; style="font-size: 3rem;" />
         <input id="begin" type="button" value="Start new game" onclick="start()"; style="font-size: 3rem;" />
         <input id="begin" type="button" value="Start the kingdom" onclick="kingdom()"; style="font-size: 3rem;" />
-        <input id="begin" type="button" value="Start the forest" onclick="forest()"; style="font-size: 3rem;" />
     </div>
     </div>
     
     <script> 
     var timeOfDay;
-    var inventory = { sword: 0, bow: 0, staff: 0, potion: 0, gold: 50}
+    var inventory = { health: 50, sword: 0, bow: 0, staff: 0, potion: 0, gold: 50}
     var spells = { flameTornato: 0, waterBurst: 0, landsFissure: 0, kazap: 0, skysTempest: 0, frostHunt: 0}
     
     var stateInventory = function() {
-        alert("You have...\n " + inventory.sword + " swords\n " + inventory.bow + " bows\n " + inventory.staff + " staffs\n " + inventory.potion + " potions\n " + inventory.gold + " gold");
+        alert("You have...\n" + inventory.health + " hp\n" + inventory.sword + " swords\n" + inventory.bow + " bows\n" + inventory.staff + " staffs\n" + inventory.potion + " potions\n" + inventory.gold + " gold");
     }
     var shop = function() {
         item = prompt('What would you like to buy. His shelves have a potion, ').toLowerCase();
@@ -40,6 +39,16 @@
                 alert('you suck');
             }
         
+    }
+    var potion = function() {
+        if ( inventory.potion >= 1 && inventory.health <= 25) {
+            alert('You drank a potion and recovered 25 health');
+            inventory.potion = inventory.potion - 1;
+            inventory.health = inventory.health + 25;
+        }
+        else {
+            alert('you can not do this right now');
+        }
     }
         
     function start() {
@@ -122,6 +131,10 @@
                 stateInventory();
                 village();
             break;
+            case 'potion':
+                potion();
+                village();
+            break;
             default:
                 alert('I dont understand ' + theVillage);
                 village();
@@ -150,24 +163,55 @@
             break;
             case 'castle':
                 alert('You enter the castle');
-                //castle();
+                castle();
             break;
             case 'blacksmith':
-
-                kingdom();
+                     weapon = prompt('What can I get for you young lad? The shelves display a Sword, a Bow, and a Staff').toLowerCase();
+                if (weapon == 'sword' && inventory.gold >= 25) {
+                    alert('You pick up the sword, and try a few practice swings it feels very comfortable in your hands. You pay the smith 25G and leave.');
+                            inventory.sword = 1;
+                            inventory.bow = 0;
+                            inventory.staff = 0;
+                            inventory.gold = inventory.gold - 25;
+                            kingdom();
+                }
+                else if (weapon == 'bow' && inventory.gold >= 25){
+                    alert('Upon grasbing the wood you pull back on the string to test its strengh it feels perfect. You pay the smith 25G and leave.');
+                            inventory.sword = 0;
+                            inventory.bow = 1;
+                            inventory.staff = 0;
+                            inventory.gold = inventory.gold - 25;
+                            kingdom();
+                } 
+                else if (weapon == 'staff' && inventory.gold >= 25) {
+                    alert('You think to yourself it isnt much now but with some spells this could do some serious damage. You pay the smith 25G and leave.');
+                            inventory.sword =0;
+                            inventory.bow = 0;
+                            inventory.staff = 1;
+                            inventory.gold = inventory.gold - 25;
+                            kingdom();
+                }
+                else {
+                    alert('Oh nothing for now? Ok lets return outside.');
+                    kingdom();
+                }
             break;
             case 'stable':
-                var travel = confirm('Will you use a horse to travel to the forest?');
+                var travel = confirm('Will you use a horse to travel to the village?');
                 if (travel){
-                    forest();
+                    village();
                 }
                 else {
                     alert('You deicied maybe later and you leave.');
                     kingdom();
                 }
             break;
-                case 'inventory':
+            case 'inventory':
                 stateInventory();
+                kingdom();
+            break;
+            case 'potion':
+                potion();
                 kingdom();
             break;
             default:
@@ -176,28 +220,46 @@
             break;
         }
     }
-    function forest() {
-        var theForest = prompt('spooky').toLowerCase();
         
-        switch(theForest) {
-            case '':
-                
+    function castle() {
+        var theCastle = prompt('you have a few options you could do some work for the king or try and steal his tresure. what will it be help or steal? Or we could just leave and return later.').toLowerCase();
+        
+        switch(theCastle) {
+            case 'steal':
+                alert('Did you really think you could get away with stealing? \n Game Over');
             break;
-            case '':
-                
-            break;
-            case '':
-                
+            case 'help':
+                if (inventory.health >= 11 && inventory.sword == 1 || inventory.bow == 1 || inventory.staff == 1) {
+                    alert('You do some work killed a few bothersome goblins and got 20 gold from the king');
+                    inventory.gold = inventory.gold + 20;
+                    inventory.health = inventory.health - 10;
+                    kingdom();
+                }
+                else {
+                    alert('It seems you were not prepared to go out and fight and got yourself killed \n Game Over');
+                }
             break;
             case 'inventory':
                 stateInventory();
-                forest();
+                castle();
+            break;
+            case 'potion':
+                potion();
+                castle();
+            break;
+            case 'leave':
+                alert('We will come back here later');
+                kingdom();
             break;
             default:
-                alert('I dont understand ' + theForest);
-                forest();
+                alert('I dont understand ' + theCastle);
+                castle();
             break;
+                
         }
+        
+        
+        
     }
     </script>
 </body>
