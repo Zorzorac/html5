@@ -1,11 +1,8 @@
-var modal = document.getElementById("modal");
-
 var changeBtn = document.getElementById("change");
 
-var perview = document.getElementById("preview");
-
-
 function Preview() {
+    var perview = document.getElementById("preview");
+    
     color = document.querySelector('input[name="color"]:checked').value;
     
     console.log("the color is " +color);
@@ -20,20 +17,26 @@ function changeColor() {
 }
 
 changeBtn.onclick = function() {
-    modal.style.display = "grid";
+    var modal = document.getElementById("modal");
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
 }
 
 function Close() {
-    modal.style.display = "none";
-    
+    var perview = document.getElementById("preview");
+    var modal = document.getElementById("modal");
+    modal.style.visibility = "hidden";
+    modal.style.opacity = "0";
     preview.style.background = "#1a1a1a";
-    
     document.querySelector('input[name="colors"]:checked').checked = false;
 }
 
 window.onclick = function(event) {
+    var perview = document.getElementById("preview");
+    var modal = document.getElementById("modal");
     if (event.target == modal) {
-        modal.style.display = "none";
+        modal.style.visibility = "hidden";
+        preview.style.opacity = "0";
         preview.style.background = "#1a1a1a";
         document.querySelector('input[name="colors"]:checked').checked = false;
     }
